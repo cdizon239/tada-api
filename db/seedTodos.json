@@ -1,0 +1,28 @@
+[
+    {
+        "name": "Read story about Turtle and the Hare",
+        "description": "Need to do xyz",
+        "task_done": false,
+        "category_name": "Homework"
+    },
+    {
+        "name": "Math Homework",
+        "description": "Finish 2 sections on long division",
+        "task_done": false,
+        "category_name": "Homework"
+        
+    },
+    {
+        "name": "Help mom with organizing snacks",
+        "description": "Help out with chores at home",
+        "task_done": false,
+        "category_name": "Chores"
+    },
+    {
+        "name": "Water the plants",
+        "description": "Help out with chores at home",
+        "task_done": true,
+        "category_name": "Chores"
+    }
+
+]

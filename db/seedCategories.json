@@ -1,0 +1,10 @@
+[
+    {
+       "category_name": "Chores",
+       "color": "red"
+    }, 
+    {
+        "category_name": "Homework",
+        "color": "blue"
+    }
+]
