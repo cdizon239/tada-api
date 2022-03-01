@@ -3,7 +3,7 @@ const mongoose = require('../db/connection');
 const todoSchema = new mongoose.Schema({
     name: {type: String, required: true},
     description: String,
-    due_date: Date,
+    due_date: String,
     task_done: Boolean,
     category: {type: mongoose.Schema.Types.ObjectId,
         ref: "TodoCategory"

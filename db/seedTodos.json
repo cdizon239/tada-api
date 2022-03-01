@@ -3,12 +3,14 @@
         "name": "Read story about Turtle and the Hare",
         "description": "Need to do xyz",
         "task_done": false,
+        "due_date": "2022-02-28T11:04:13",
         "category_name": "Homework"
     },
     {
         "name": "Math Homework",
         "description": "Finish 2 sections on long division",
         "task_done": false,
+        "due_date": "2022-02-28T11:04:13",
         "category_name": "Homework"
         
     },
@@ -16,6 +18,7 @@
         "name": "Help mom with organizing snacks",
         "description": "Help out with chores at home",
         "task_done": false,
+        "due_date": "2022-02-28T11:04:13",
         "category_name": "Chores"
     },
     {
