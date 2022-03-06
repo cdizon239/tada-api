@@ -20,7 +20,7 @@ router.post('/', (req, res) => {
         
         let createTodo = {
             ...req.body,
-            category: category._id
+            category: category?._id
         }
         
         Todo.create(createTodo, (err, createdTodo) => {
@@ -74,9 +74,6 @@ router.delete('/:todoId', (req, res) => {
         res.status(200).json(deletedTodo)
     })
 })
-
-
-
 
 
 module.exports = router;
