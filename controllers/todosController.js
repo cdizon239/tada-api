@@ -14,6 +14,21 @@ router.get('/', (req, res) => {
     res.status(200).json(todos)
 })
 })
+
+
+// Get all categories
+router.get('/categories', (req, res) => {
+    TodoCategory.find({})
+    .exec((err, todoCategories) => {
+      if (err) {
+          res.status(400).json({error: err.message})
+      }
+      res.status(200).json(todoCategories)
+  })
+  })
+
+
+
 //  post a new todo
 router.post('/', (req, res) => {
     TodoCategory.findOne({category_name: req.body.category_name}, (err, category) => {
@@ -61,6 +76,18 @@ router.put('/:todoId', (req, res) => {
             }
             res.status(200).json(updatedTodo)
         })
+    })
+
+})
+
+router.patch('/:todoId', (req, res) => {
+    console.log('I was hit!!! patch me!', req.body);
+    Todo.findByIdAndUpdate(req.params.todoId, req.body, {new:true},(err, updatedTodo) => {
+        if(err) {
+            res.status(400).json({error: err.message})
+        }
+        console.log(updatedTodo);
+        res.status(200).json(updatedTodo)
     })
 
 })
