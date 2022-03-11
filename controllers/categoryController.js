@@ -13,6 +13,7 @@ router.get('/', (req, res) => {
 })
 
 router.post('/', (req, res) => {
+    console.log(req.body);
     TodoCategory.create(req.body, (err, createdCategory) => {
         if (err) {
             res.status(400).json({error: err.message})
@@ -40,7 +41,6 @@ router.put('/:categoryId', (req, res) => {
 })
 
 router.delete('/:categoryId', (req, res) => {
-
     Todo.deleteMany({category: req.params.categoryId}, (err, deletedTodos) => {
         console.log(deletedTodos);
         TodoCategory.findByIdAndDelete(req.params.categoryId, (err, deletedCategory) => {
