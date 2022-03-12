@@ -5,14 +5,16 @@ const TodoCategory = require('../models/toDoCategories')
 
 //  Get all todos and populate category
 router.get('/', (req, res) => {
-  Todo.find({})
-  .populate("category")
-  .exec((err, todos) => {
-    if (err) {
-        res.status(400).json({error: err.message})
-    }
-    res.status(200).json(todos)
-})
+    console.log(req.session); 
+//   Todo.find({owner: req.session.userId})
+//   .populate("category")
+//   .exec((err, todos) => {
+//     if (err) {
+//         res.status(400).json({error: err.message})
+//     }
+//     // console.log(todos);
+//     res.status(200).json(todos)
+// })
 })
 
 
@@ -31,11 +33,12 @@ router.get('/categories', (req, res) => {
 
 //  post a new todo
 router.post('/', (req, res) => {
-    TodoCategory.findOne({category_name: req.body.category_name}, (err, category) => {
+    TodoCategory.findOne({category_name: req.body.category_name, owner: req.session.userId}, (err, category) => {
         
         let createTodo = {
             ...req.body,
-            category: category?._id
+            category: category?._id,
+            owner: req.session.userId
         }
         
         Todo.create(createTodo, (err, createdTodo) => {
