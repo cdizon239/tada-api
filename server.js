@@ -13,10 +13,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 
 // allows cross origin requests
-app.use(cors({
-    origin: ['*'],
-    credentials: true,
-}))
+app.use(cors())
 
 console.log(process.env.SESSION_SECRET);
 
