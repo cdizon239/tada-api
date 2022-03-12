@@ -13,14 +13,27 @@ app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 
 // allows cross origin requests
-app.use(cors())
+// app.use(cors({
+//     origin: ['http://localhost:3000/','*'],
+//     credentials: true,
+// }))
+app.use(cors({
+    origin: 'http://localhost:3000',
+    credentials: true
+}))
+
+// app.use(cors())
+
 
 console.log(process.env.SESSION_SECRET);
 
 app.use(session({
     secret: SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false
+    resave: true,
+    saveUninitialized: false,
+    cookie: {
+        secure: false
+    }
 }))
 
 //  session middleware

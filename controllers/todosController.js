@@ -5,16 +5,16 @@ const TodoCategory = require('../models/toDoCategories')
 
 //  Get all todos and populate category
 router.get('/', (req, res) => {
-    console.log(req.session); 
-//   Todo.find({owner: req.session.userId})
-//   .populate("category")
-//   .exec((err, todos) => {
-//     if (err) {
-//         res.status(400).json({error: err.message})
-//     }
-//     // console.log(todos);
-//     res.status(200).json(todos)
-// })
+    console.log('fetch index', req.session); 
+  Todo.find({owner: req.session.userId})
+  .populate("category")
+  .exec((err, todos) => {
+    if (err) {
+        res.status(400).json({error: err.message})
+    }
+    // console.log(todos);
+    res.status(200).json(todos)
+})
 })
 
 
