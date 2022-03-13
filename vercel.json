@@ -1,0 +1,11 @@
+{
+    "version": 1,
+    "name": "tada-api",
+    "builds": [
+      { "src": "script.js", "use": "@vercel/node" }
+    ],
+    "routes": [
+      { "src": "/(.*)", "dest": "/server.js" }
+    ]
+  }
+  
