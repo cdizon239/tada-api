@@ -4,9 +4,11 @@ const Todo = require('../models/todos')
 const TodoCategory = require('../models/toDoCategories')
 
 router.get('/', (req, res) => {
-    TodoCategory.find({}, (err, categories) => {
+    TodoCategory.find({
+        owner: req.session.userId
+    }, (err, categories) => {
         if (err) {
-            res.status(400).json({error: err.message})
+            res.status(400).json({ error: err.message })
         }
         res.status(200).json(categories)
     })
@@ -14,9 +16,13 @@ router.get('/', (req, res) => {
 
 router.post('/', (req, res) => {
     console.log(req.body);
-    TodoCategory.create(req.body, (err, createdCategory) => {
+    createCategory = {
+        ...req.body,
+        owner: req.session.userId
+    }
+    TodoCategory.create(createCategory, (err, createdCategory) => {
         if (err) {
-            res.status(400).json({error: err.message})
+            res.status(400).json({ error: err.message })
         }
         res.status(200).json(createdCategory)
     })
@@ -25,7 +31,7 @@ router.post('/', (req, res) => {
 router.get('/:categoryId', (req, res) => {
     TodoCategory.findById(req.params.categoryId, (err, category) => {
         if (err) {
-            res.status(400).json({error: err.message})
+            res.status(400).json({ error: err.message })
         }
         res.status(200).json(category)
     })
@@ -34,18 +40,18 @@ router.get('/:categoryId', (req, res) => {
 router.put('/:categoryId', (req, res) => {
     TodoCategory.findByIdAndUpdate(req.params.categoryId, req.body, (err, updatedCategory) => {
         if (err) {
-            res.status(400).json({error: err.message})
+            res.status(400).json({ error: err.message })
         }
         res.status(200).json(updatedCategory)
     })
 })
 
 router.delete('/:categoryId', (req, res) => {
-    Todo.deleteMany({category: req.params.categoryId}, (err, deletedTodos) => {
+    Todo.deleteMany({ category: req.params.categoryId }, (err, deletedTodos) => {
         console.log(deletedTodos);
         TodoCategory.findByIdAndDelete(req.params.categoryId, (err, deletedCategory) => {
             if (err) {
-                res.status(400).json({error: err.message})
+                res.status(400).json({ error: err.message })
             }
             res.status(200).json(deletedCategory)
         })

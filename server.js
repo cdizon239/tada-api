@@ -13,20 +13,14 @@ app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 
 // allows cross origin requests
-// app.use(cors({
-//     origin: ['http://localhost:3000/','*'],
-//     credentials: true,
-// }))
 app.use(cors({
-    origin: 'http://localhost:3000',
+    origin: ['http://localhost:3000'],
     credentials: true
 }))
 
-// app.use(cors())
-
-
 console.log(process.env.SESSION_SECRET);
 
+//  session middleware
 app.use(session({
     secret: SESSION_SECRET,
     resave: true,
@@ -36,11 +30,20 @@ app.use(session({
     }
 }))
 
-//  session middleware
+const authRequired = (req, res, next) => {
+    if (req.session.userId) {
+        next()
+    } else {
+        res.status(302).json({
+            message: 'You must be logged in to do that',
+            status: 302
+        })
+    }
+}
 
 app.use('/sessions', sessionsController)
-app.use('/todo', todosController)
-app.use('/category', categoryController)
+app.use('/todo', authRequired, todosController)
+app.use('/category', authRequired, categoryController)
 
 app.listen(app.get('port'), () => {
     console.log('Yay it\'s working on port', app.get('port'));

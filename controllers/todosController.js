@@ -5,45 +5,45 @@ const TodoCategory = require('../models/toDoCategories')
 
 //  Get all todos and populate category
 router.get('/', (req, res) => {
-    console.log('fetch index', req.session); 
-  Todo.find({owner: req.session.userId})
-  .populate("category")
-  .exec((err, todos) => {
-    if (err) {
-        res.status(400).json({error: err.message})
-    }
-    // console.log(todos);
-    res.status(200).json(todos)
-})
+    console.log('fetch index', req.session);
+    Todo.find({ owner: req.session.userId })
+        .populate("category")
+        .exec((err, todos) => {
+            if (err) {
+                res.status(400).json({ error: err.message })
+            }
+            // console.log(todos);
+            res.status(200).json(todos)
+        })
 })
 
 
 // Get all categories
 router.get('/categories', (req, res) => {
-    TodoCategory.find({})
-    .exec((err, todoCategories) => {
-      if (err) {
-          res.status(400).json({error: err.message})
-      }
-      res.status(200).json(todoCategories)
-  })
-  })
+    TodoCategory.find({ owner: req.session.userId })
+        .exec((err, todoCategories) => {
+            if (err) {
+                res.status(400).json({ error: err.message })
+            }
+            res.status(200).json(todoCategories)
+        })
+})
 
 
 
 //  post a new todo
 router.post('/', (req, res) => {
-    TodoCategory.findOne({category_name: req.body.category_name, owner: req.session.userId}, (err, category) => {
-        
+    TodoCategory.findOne({ category_name: req.body.category_name, owner: req.session.userId }, (err, category) => {
+
         let createTodo = {
             ...req.body,
             category: category?._id,
             owner: req.session.userId
         }
-        
+
         Todo.create(createTodo, (err, createdTodo) => {
-            if(err) {
-                res.status(400).json({error: err.message})
+            if (err) {
+                res.status(400).json({ error: err.message })
             }
             res.status(200).json(createdTodo)
         })
@@ -55,27 +55,27 @@ router.post('/', (req, res) => {
 // get info for single todo
 router.get('/:todoId', (req, res) => {
     Todo.findById(req.params.todoId)
-    .populate("category")
-    .exec((err, todo) => {
-        if (err) {
-            res.status(400).json({error: err.message})
-        }
-        res.status(200).json(todo)
-    })
+        .populate("category")
+        .exec((err, todo) => {
+            if (err) {
+                res.status(400).json({ error: err.message })
+            }
+            res.status(200).json(todo)
+        })
 })
 
 // update info for single todo
 router.put('/:todoId', (req, res) => {
-    TodoCategory.findOne({category_name: req.body.category_name}, (err, category) => {
-        
+    TodoCategory.findOne({ category_name: req.body.category_name }, (err, category) => {
+
         let updateTodo = {
             ...req.body,
             category: category?._id
         }
 
         Todo.findByIdAndUpdate(req.params.todoId, updateTodo, (err, updatedTodo) => {
-            if(err) {
-                res.status(400).json({error: err.message})
+            if (err) {
+                res.status(400).json({ error: err.message })
             }
             res.status(200).json(updatedTodo)
         })
@@ -85,9 +85,9 @@ router.put('/:todoId', (req, res) => {
 
 router.patch('/:todoId', (req, res) => {
     console.log('I was hit!!! patch me!', req.body);
-    Todo.findByIdAndUpdate(req.params.todoId, req.body, {new:true},(err, updatedTodo) => {
-        if(err) {
-            res.status(400).json({error: err.message})
+    Todo.findByIdAndUpdate(req.params.todoId, req.body, { new: true }, (err, updatedTodo) => {
+        if (err) {
+            res.status(400).json({ error: err.message })
         }
         console.log(updatedTodo);
         res.status(200).json(updatedTodo)
@@ -98,8 +98,8 @@ router.patch('/:todoId', (req, res) => {
 router.delete('/:todoId', (req, res) => {
     console.log('delete todo');
     Todo.findByIdAndDelete(req.params.todoId, (err, deletedTodo) => {
-        if(err) {
-            res.status(400).json({error: err.massage})
+        if (err) {
+            res.status(400).json({ error: err.massage })
         }
         res.status(200).json(deletedTodo)
     })
