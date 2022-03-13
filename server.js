@@ -14,11 +14,9 @@ app.use(express.urlencoded({extended: true}))
 
 // allows cross origin requests
 app.use(cors({
-    origin: ['http://localhost:3000'],
+    origin: [process.env.APP_FRONTEND],
     credentials: true
 }))
-
-console.log(process.env.SESSION_SECRET);
 
 //  session middleware
 app.use(session({
