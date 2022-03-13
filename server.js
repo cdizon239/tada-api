@@ -40,8 +40,8 @@ const authRequired = (req, res, next) => {
 }
 
 app.use('/sessions', sessionsController)
-app.use('/todo', authRequired, todosController)
-app.use('/category', authRequired, categoryController)
+app.use('/todo', todosController)
+app.use('/category', categoryController)
 
 app.listen(app.get('port'), () => {
     console.log('Yay it\'s working on port', app.get('port'));
