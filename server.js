@@ -23,9 +23,9 @@ app.use(session({
     secret: SESSION_SECRET,
     resave: true,
     saveUninitialized: false,
-    cookie: {
-        secure: false
-    }
+    // cookie: {
+    //     secure: false
+    // }
 }))
 
 const authRequired = (req, res, next) => {
