@@ -3,7 +3,6 @@ const mongoose = require('../db/connection')
 const UserSchema = new mongoose.Schema({
     givenName: {
         type: String,
-        unique: true,
         require: true
     },
     googleId: {

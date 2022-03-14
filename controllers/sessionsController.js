@@ -39,6 +39,7 @@ router.post('/signIn', async (req, res) => {
             return res.status(201).json({message: 'successfully signed in' + userToLogin.givenName, status: 201, email: userToLogin.email, imageUrl: userToLogin.imageUrl})              
         } else {
             //  create a new User
+            console.log(googleUser);
             let {email, givenName, googleId, imageUrl} = {
                 email: googleUser.email,
                 givenName: googleUser.given_name,
