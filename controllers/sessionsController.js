@@ -45,7 +45,7 @@ router.post('/signIn', async (req, res) => {
                 googleId: googleUser.sub,
                 imageUrl: googleUser.picture
             }
-            const createdUser = User.create({email, givenName, googleId, imageUrl})
+            const createdUser = await User.create({email, givenName, googleId, imageUrl})
             console.log(createdUser);
             req.session.email = createdUser.email,
             req.session.givenName = createdUser.givenName,
